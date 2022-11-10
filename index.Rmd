@@ -37,25 +37,15 @@ anes |>
   geom_bar() +
   labs(title = "American Opinion on Government Action on Climate Change")
 
-bootstrap_dist <- anes |>
-  rep_slice_sample(prop = 1, reps = 1000, replace = TRUE) |>
-  group_by(replicate, pid7) |>
-  summarize(envir_doing_more_mean = mean(envir_doing_more))
-bootstrap_dist
-
-bootstrap_dist |>
-ggplot(aes(x = envir_doing_more_mean)) +
-geom_histogram(aes(y = ..density..), binwidth = 0.1)
-
 anes_party <- anes |>
-  group_by(pid7, envir_doing_more) |>
-  summarize(n = n())
+  group_by(pid7) |>
+  summarize(envir_doing_more_mean = mean(envir_doing_more))
 anes_party
 
 anes_party_bar <- anes_party |>
-  ggplot(mapping = aes(x = pid7, fill = envir_doing_more)) +
-  geom_bar() +
-  labs(x = "Party Identification (1-7)", title = "American Opinion on Government Action on Climate Change With Respect to Political Identification" ) 
+  ggplot(mapping = aes(x = pid7, y = envir_doing_more_mean)) +
+  geom_col() +
+  labs(x = "Party Identification 1 (Strong Democrat) to 7 (Strong Republican)", title = "American Opinion on Government Action on Climate Change With Respect to Party Identification")
 anes_party_bar
 
 
