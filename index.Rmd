@@ -13,13 +13,51 @@ output:
 
 I am interested in exploring data related to U.S. public opinions on climate change and how they have changed over time. I also hope to find a data set that takes into account how political party affiliation impacts opinions on climate change, and further, the degree of action that should be taken in addressing this existential crisis.  
 
-
-```{r}
-library(readr)
-library(haven)
-climate <- read_sav("W33_Mar18/ATP W33.sav")
-climate
-```
 ## Proposal
  
-Do the majority of adult Americans believe that the United States government is doing enough to reduce the effects of global climate change? In this study, I plan to examine the extent to which the American public believes the U.S. is taking meaningful steps to combat climate change. I also plan to observe differences of opinions of adults within the Republican versus Democratic parties on whether the government is doing enough to reduce the effects of climate change. I hypothesize that a majority of Americans believe that the federal government is not doing enough to protect the environment by reducing the effects of global warming. I make this hypothesis because public concern over climate change has been steadily rising in recent years, especially among members of the Democratic Party. Additionally, environmental activism seems to be a very important issue especially for those of younger generations in the current social landscape. Furthermore, I hypothesize that a greater percentage of Democrats believe that the federal government is not doing enough to protect the environment by reducing the effects of climate change than Republicans, due to the fact that the Democrats have made climate change a center issue in their party platform while Republicans have not made the environment a party priority and support the fossil fuel industry. My sample is comprised of adults in the U.S. who are of voting age from a survey conducted by Pew Research Center from March 27 to April 9, 2018. The explanatory variable of interest is political affiliation and whether the individual being surveyed is affiliated with the Democratic or Republican Party. The variable of political party affiliation will be a binary variable that is coded as =0 if the individual is affiliated with the Republican Party and =1 if the individual is affiliated with the Democratic Party. The outcome variable is the extent to which the individual believes the federal government is taking proper measures to reduce the effects of climate change. The outcome variable is coded = 0 for too little, 1 for about the right amount, and 2 for too much. If I observe that a greater percentage of Democrats believe that the government is doing too little (0) to reduce the impacts of global warming than Republicans, this would support my hypothesis. However, if I observe that a greater percentage of Republicans believe that the government is doing too little (0) to reduce the effects of climate change, this would provide evidence against my hypothesis. 
+Do the majority of adult Americans believe that the United States government should be doing more to reduce the effects of global climate change? In this study, I plan to examine the extent to which the American public believes the U.S. is taking meaningful steps to combat climate change. I also plan to observe differences of opinions of adults within the Republican versus Democratic parties on whether the government should be doing more to reduce the effects of climate change. I hypothesize that a majority of Americans believe that the federal government should be doing more to protect the environment by reducing the effects of global warming. I make this hypothesis because public concern over climate change has been steadily rising in recent years, especially among members of the Democratic Party. Additionally, environmental activism seems to be a very important issue especially for those of younger generations in the current social landscape. Furthermore, I hypothesize that a greater percentage of Democrats believe that the federal government is not doing enough to protect the environment by reducing the effects of climate change than Republicans, due to the fact that the Democrats have made climate change a center issue in their party platform while Republicans have not made the environment a party priority and support the fossil fuel industry. My sample is comprised of 5,162 adults in the U.S. who are of voting age from American National Election Survey data from the Gov50 data package. The explanatory variable of interest is political affiliation and whether the individual being surveyed is affiliated with the Democratic or Republican Party. The variable of political party affiliation is coded on a 1-7 scale, where 1 indicates a strong Democrat while 7 indicates a strong Republican. The outcome variable is whether the individual believes the federal government is taking proper measures to reduce the effects of climate change or should be doing more. The outcome variable is coded 1 if the respondent thinks the government should be doing more about climate change and 0 if the government is doing enough. If I observe that a greater percentage of Democrats believe that the government should be doing more (1) to reduce the impacts of global warming than Republicans, this would support my hypothesis. However, if I observe that a greater percentage of Republicans believe that the government is doing too little (0) to reduce the effects of climate change, this would provide evidence against my hypothesis. 
+
+## Milestone #3
+
+```{r}
+library(gov50data)
+library(ggplot2)
+library(dplyr)
+library(infer)
+library(tidyverse)
+anes <- anes
+anes
+
+anes |>
+  group_by(envir_doing_more) |>
+  summarize(n = n()) |>
+  mutate(prop = n / sum(n)) |>
+  ggplot(data = anes, 
+         mapping = aes(x = envir_doing_more)) +
+  geom_bar() +
+  labs(title = "American Opinion on Government Action on Climate Change")
+
+bootstrap_dist <- anes |>
+  rep_slice_sample(prop = 1, reps = 1000, replace = TRUE) |>
+  group_by(replicate, pid7) |>
+  summarize(envir_doing_more_mean = mean(envir_doing_more))
+bootstrap_dist
+
+bootstrap_dist |>
+ggplot(aes(x = envir_doing_more_mean)) +
+geom_histogram(aes(y = ..density..), binwidth = 0.1)
+
+anes_party <- anes |>
+  group_by(pid7, envir_doing_more) |>
+  summarize(n = n())
+anes_party
+
+anes_party_bar <- anes_party |>
+  ggplot(mapping = aes(x = pid7, fill = envir_doing_more)) +
+  geom_bar() +
+  labs(x = "Party Identification (1-7)", title = "American Opinion on Government Action on Climate Change With Respect to Political Identification" ) 
+anes_party_bar
+
+
+```
+
