@@ -27,7 +27,7 @@ library(infer)
 library(tidyverse)
 anes <- anes
 anes
-
+##
 anes |>
   group_by(envir_doing_more) |>
   summarize(n = n()) |>
