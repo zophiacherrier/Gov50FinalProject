@@ -1548,7 +1548,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 # … with 5,152 more rows, and abbreviated variable names
 #   ¹​rural_therm, ²​favor_voter_id, ³​envir_doing_more</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>anes</span> <span class='op'>|&gt;</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>##</span></span>
+<span><span class='va'>anes</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>envir_doing_more</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>prop <span class='op'>=</span> <span class='va'>n</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
@@ -1583,7 +1584,68 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <p><img src="index_files/figure-html5/unnamed-chunk-1-2.png" width="624" /></p>
 </div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h2 id="milestone-4">Milestone #4</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>anes_party_table</span> <span class='op'>&lt;-</span> <span class='va'>anes</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>pid7</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>envir_doing_more_mean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>envir_doing_more</span><span class='op'>)</span><span class='op'>)</span> </span>
+<span><span class='va'>anes_party_table</span></span></code></pre>
+</div>
+<pre><code># A tibble: 7 × 2
+   pid7 envir_doing_more_mean
+  &lt;dbl&gt;                 &lt;dbl&gt;
+1     1                 0.932
+2     2                 0.873
+3     3                 0.935
+4     4                 0.619
+5     5                 0.318
+6     6                 0.406
+7     7                 0.129</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='va'>anes_party_table</span>, col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Party ID"</span>, <span class='st'>"envir_doing_more_mean"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Party ID</th>
+<th style="text-align: right;">envir_doing_more_mean</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.9319880</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.8733706</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.9353846</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.6194030</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.3175439</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.4063116</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.1286701</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>From the first table in my research, “American Opinion on Government Action on Climate Change” one can observe that the majority of Americans believe the government should be doing more to combat climate change, as around 2000 respondents said the government was doing enough while around 3000 said the government should take more action on the issue. Therefore, based on this sample, a roughly 60 percent majority of Americans would believe that the government should be doing more to curtail global warming, supporting my hypothesis that most Americans feel that the government should be doing more. I also hypothesized that a greater percentage of Democrats believe that the federal government is not doing enough to protect the environment by reducing the effects of climate change than Republicans, where my second visualization, “American Opinion on Government Action on Climate Change with Respect to Party Identification” demonstrates this. The means of those who believe the government should be doing more are significantly higher for those who identify as Democrats or strong Democrats (1- .93 2- .87, 3- .94), than those who identify as Republicans or strong Republicans (5- .32, 6- .40, 7- .13), as more than half the Democrats in PIDs 1, 2, and 3 believe the government should being doing more. What I also found interesting in the table means was that for those down the middle of party identification in party ID 4, the mean of those who believe the government should be taking more action on climate change was .62, proving that more than half the moderates also believe that more government intervention is needed. Overall, the trends of means that the government should be doing more generally decreased as ideology shifted towards Republican and PID increased on the 7 point scale. The only notable exceptions were that on both the Democratic and Republican sides, PID 5’s envir_doing_more_mean (.32) was less than PID 6’s envir_doing_more_mean (.40) even though they identified less strongly as a Republican, while PID 2’s mean of .87 was less than PID 3’s mean of .93 even though PID 2 identified more strongly as Democrats.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
