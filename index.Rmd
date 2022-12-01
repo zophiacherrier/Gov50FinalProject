@@ -43,9 +43,9 @@ anes_party <- anes |>
 anes_party
 
 anes_party_bar <- anes_party |>
-  ggplot(mapping = aes(x = pid7, y = envir_doing_more_mean)) +
-  geom_col() +
-  labs(x = "Party Identification 1 (Strong Democrat) to 7 (Strong Republican)", title = "American Opinion on Government Action on Climate Change With Respect to Party Identification")
+  ggplot(mapping = aes(fill = envir_doing_more_mean, x = pid7, y = envir_doing_more_mean)) +
+  geom_bar(stat = "identity") + scale_fill_gradient(low = "red", high = "blue") +
+  labs(fill = "Climate Change Opinion Proportion", x = "Party Identification 1 (Strong Democrat) to 7 (Strong Republican)", title = "American Opinion on Government Action on Climate Change With Respect to Party Identification")
 anes_party_bar
 
 
