@@ -25,7 +25,7 @@ library(ggplot2)
 library(dplyr)
 library(infer)
 library(tidyverse)
-anes <- anes
+anes <- anes 
 anes
 ##
 anes |>
@@ -34,8 +34,8 @@ anes |>
   mutate(prop = n / sum(n)) |>
   ggplot(data = anes, 
          mapping = aes(x = envir_doing_more)) +
-  geom_bar() +
-  labs(title = "American Opinion on Government Action on Climate Change")
+  geom_bar(aes(x = envir_doing_more, fill = "red")) +
+  labs(title = "American Opinion on Government Action on Climate Change", fill = "Count")
 
 anes_party <- anes |>
   group_by(pid7) |>
