@@ -65,6 +65,18 @@ knitr::kable(anes_party_table, col.names = c("Party ID", "envir_doing_more_mean"
 
 From the first table in my research, "American Opinion on Government Action on Climate Change" one can observe that the majority of Americans believe the government should be doing more to combat climate change, as around 2000 respondents said the government was doing enough while around 3000 said the government should take more action on the issue. Therefore, based on this sample, a roughly 60 percent majority of Americans would believe that the government should be doing more to curtail global warming, supporting my hypothesis that most Americans feel that the government should be doing more. I also hypothesized that a greater percentage of Democrats believe that the federal government is not doing enough to protect the environment by reducing the effects of climate change than Republicans, where my second visualization, "American Opinion on Government Action on Climate Change with Respect to Party Identification" demonstrates this. The means of those who believe the government should be doing more are significantly higher for those who identify as Democrats or strong Democrats (1- .93 2- .87, 3- .94), than those who identify as Republicans or strong Republicans (5- .32, 6- .40, 7- .13), as more than half the Democrats in PIDs 1, 2, and 3 believe the government should being doing more. What I also found interesting in the table means was that for those down the middle of party identification in party ID 4, the mean of those who believe the government should be taking more action on climate change was .62, proving that more than half the moderates also believe that more government intervention is needed. Overall, the trends of means that the government should be doing more generally decreased as ideology shifted towards Republican and PID increased on the 7 point scale. The only notable exceptions were that on both the Democratic and Republican sides, PID 5's envir_doing_more_mean (.32) was less than PID 6's envir_doing_more_mean (.40) even though they identified less strongly as a Republican, while PID 2's mean of .87 was less than PID 3's mean of .93 even though PID 2 identified more strongly as Democrats.
 
+## Regression and Multiple Regression
+
+```{r}
+fit <- lm(envir_doing_more ~ pid7, data = anes)
+fit
+
+fit.mult <- lm(envir_doing_more ~ pid7 + state, data = anes)
+fit.mult
+```
+
+
+
 
 
 
