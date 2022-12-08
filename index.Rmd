@@ -15,7 +15,7 @@ I am interested in exploring data related to U.S. public opinions on climate cha
 
 ## Proposal
  
-Do the majority of adult Americans believe that the United States government should be doing more to reduce the effects of global climate change? In this study, I plan to examine the extent to which the American public believes the U.S. is taking meaningful steps to combat climate change. I also plan to observe differences of opinions of adults within the Republican versus Democratic parties on whether the government should be doing more to reduce the effects of climate change. I hypothesize that a majority of Americans believe that the federal government should be doing more to protect the environment by reducing the effects of global warming. I make this hypothesis because public concern over climate change has been steadily rising in recent years, especially among members of the Democratic Party. Additionally, environmental activism seems to be a very important issue especially for those of younger generations in the current social landscape. Furthermore, I hypothesize that a greater percentage of Democrats believe that the federal government is not doing enough to protect the environment by reducing the effects of climate change than Republicans, due to the fact that the Democrats have made climate change a center issue in their party platform while Republicans have not made the environment a party priority and support the fossil fuel industry. My sample is comprised of 5,162 adults in the U.S. who are of voting age from American National Election Survey data from the Gov50 data package. The explanatory variable of interest is political affiliation and whether the individual being surveyed is affiliated with the Democratic or Republican Party. The variable of political party affiliation is coded on a 1-7 scale, where 1 indicates a strong Democrat while 7 indicates a strong Republican. The outcome variable is whether the individual believes the federal government is taking proper measures to reduce the effects of climate change or should be doing more. The outcome variable is coded 1 if the respondent thinks the government should be doing more about climate change and 0 if the government is doing enough. If I observe that a greater percentage of Democrats believe that the government should be doing more (1) to reduce the impacts of global warming than Republicans, this would support my hypothesis. However, if I observe that a greater percentage of Republicans believe that the government is doing too little (0) to reduce the effects of climate change, this would provide evidence against my hypothesis. 
+Do the majority of adult Americans believe that the United States government should be doing more to reduce the effects of global climate change? In this study, I plan to examine the extent to which the American public believes the U.S. is taking meaningful steps to combat climate change. I also plan to observe differences of opinion between adults within the Republican versus Democratic parties on whether the government should be doing more to reduce the effects of climate change. I hypothesize that a majority of Americans believe that the federal government should be doing more to protect the environment by reducing the effects of global warming. I make this hypothesis because public concern over climate change has been steadily rising in recent years, especially among members of the Democratic Party. Additionally, environmental activism seems to be a very important issue, especially for those of younger generations in the current social landscape. Furthermore, I hypothesize that a greater percentage of Democrats believe that the federal government is not doing enough to protect the environment by reducing the effects of climate change than Republicans, due to the fact that the Democrats have made climate change a central issue in their party platform while Republicans have not made the environment a party priority and support the fossil fuel industry. My sample is comprised of 5,162 adults in the U.S. who are of voting age from American National Election Survey data from the Gov50 data package. The explanatory variable of interest is political affiliation and whether the individual being surveyed is affiliated with the Democratic or Republican Party. The variable of political party affiliation is coded on a 1-7 scale, where 1 indicates a strong Democrat while 7 indicates a strong Republican. The outcome variable is whether the individual believes the federal government is taking proper measures to reduce the effects of climate change or should be doing more. The outcome variable is coded 1 if the respondent thinks the government should be doing more about climate change and 0 if the government is doing enough. If I observe that a greater percentage of Democrats believe that the government should be doing more (1) to reduce the impacts of global warming than Republicans, this would support my hypothesis. However, if I observe that a greater percentage of Republicans believe that the government is doing too little (0) to reduce the effects of climate change, this would provide evidence against my hypothesis.
 
 ## Milestone #3
 
@@ -73,6 +73,19 @@ fit
 
 fit.mult <- lm(envir_doing_more ~ pid7 + state, data = anes)
 fit.mult
+```
+```{r}
+library(broom)
+library(tidyverse)
+anes.multreg <- lm(envir_doing_more ~ pid7 + state, data = anes)
+anes.multreg
+tidy(anes.multreg) |>
+  knitr::kable(digits = 3)
+
+anes.reg <- lm(envir_doing_more ~ pid7, data = anes)
+anes.reg
+tidy(anes.reg) |>
+  knitr::kable(digits = 3)
 ```
 
 
