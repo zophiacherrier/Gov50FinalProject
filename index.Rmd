@@ -1,7 +1,7 @@
 ---
 title: "Gov 50 Final Project"
 author: Zophia Cherrier
-description: "U.S. Public Opinions on Climate Change"
+description: "U.S. Public Opinion on Climate Change"
 output:
   distill::distill_article:
     self_contained: false
